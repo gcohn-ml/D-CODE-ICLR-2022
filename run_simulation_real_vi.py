@@ -1,5 +1,7 @@
 import argparse
 import numpy as np
+import sys
+sys.path.append("/Users/gcohn/Documents/D-CODE-ICLR-2022/")
 
 import data
 import equations
@@ -11,13 +13,14 @@ import time
 
 
 def run(dim_x, x_id, n_sample, seed, n_seed):
+    # x_id = 1
     np.random.seed(999)
-    ode_name = 'real'
+    ode_name = 'lhm'
 
-    dg = data.DataGeneratorReal(dim_x, n_sample)
+    dg = data.DataGeneratorLHM(dim_x, n_sample)
 
     yt = dg.generate_data()
-    ode = equations.RealODEPlaceHolder()
+    ode = equations.LHMODEPlaceHolder()
     ode_data, X_ph, y_ph, t_new = get_ode_data(yt, x_id, dg, ode)
 
     path_base = 'results_vi/{}/sample-{}/dim-{}/'.format(ode_name, n_sample, dim_x)
@@ -34,9 +37,9 @@ def run(dim_x, x_id, n_sample, seed, n_seed):
         print(f_hat)
 
         if x_id == 0:
-            path = path_base + 'grad_seed_{}.pkl'.format(s)
+            path = path_base + 'grad_seed_{}_train_medium.pkl'.format(s)
         else:
-            path = path_base + 'grad_x_{}_seed_{}.pkl'.format(x_id, s)
+            path = path_base + 'grad_x_{}_seed_{}_train_medium.pkl'.format(x_id, s)
         end = time.time()
 
         with open(path, 'wb') as f:
@@ -66,4 +69,5 @@ if __name__ == '__main__':
     args = parser.parse_args()
     print('Running with: ', args)
 
-    run(args.dim_x, args.x_id, args.n_sample, seed=args.seed, n_seed=args.n_seed)
+    run(8, 5, args.n_sample, seed=0, n_seed=3)
+    run(8, 6, args.n_sample, seed=0, n_seed=3)

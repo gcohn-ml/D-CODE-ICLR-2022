@@ -386,6 +386,7 @@ class _Program(object):
 
         """
         # Check for single-node programs
+        # print(f"in _program, X.shape {X.shape}")
         node = self.program[0]
         if isinstance(node, float):
             return np.repeat(node, X.shape[0])

@@ -21,10 +21,8 @@ def get_config(ode, x_id=0):
         if x_id == 0:
             return lorenz_config_x0
         elif x_id == 1:
-            print('loading config for X1')
             return lorenz_config_x1
         else:
-            print('loading config for X2')
             return lorenz_config_x2
 
 
@@ -42,6 +40,8 @@ def get_interpolation_config(ode, x_id=0):
         return selkov_interp_config
     elif ode.name == 'real':
         return real_interp_config
+    elif ode.name == 'lhm':
+        return lhm_interp_config
     elif ode.name == 'FracODE':
         return frac_interp_config
     else:
@@ -71,6 +71,15 @@ real_interp_config = {
     'r': 4,
     'sigma_in': 0.15,
     'freq_int': 365*2,
+    'new_sample': 5,
+    'n_basis': 50,
+    'basis': basis.FourierBasis,
+}
+
+lhm_interp_config = {
+    'r': 4,
+    'sigma_in': 0.15,
+    'freq_int': 24,
     'new_sample': 5,
     'n_basis': 50,
     'basis': basis.FourierBasis,
@@ -152,9 +161,9 @@ real_config = {'population_size': 15000,
                    'p_subtree_mutation': 0.133,
                    'p_hoist_mutation': 0.0361,
                    'p_point_mutation': 0.0905,
-                   'function_set': {'neg': 1, 'mul': 3, 'log': 1, 'add': 1},
+                   'function_set': {'neg': 1, 'mul': 3, 'log': 1, 'add': 1, 'tanh': 1},
                    'const_range': (0, 10),
-                   'generations': 20,
+                   'generations': 10,
                    'stopping_criteria': 0.01,
                    'max_samples': 0.9,
                    'verbose': 1,

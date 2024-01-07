@@ -10,7 +10,6 @@ class DataGenerator:
         self.noise_sigma = noise_sigma
         self.solver = equations.ODESolver(ode, T, freq, return_list=return_list)
         self.return_list = return_list
-
         if isinstance(init_high, float) or isinstance(init_high, int):
             self.init_cond = np.random.uniform(init_low, init_high, (n_sample, ode.dim_x))
         else:
@@ -59,6 +58,31 @@ class DataGeneratorReal:
         self.solver = equations.ODESolver(equations.RealODEPlaceHolder(), self.T, 364)
         self.noise_sigma = 0.001
         self.freq = 364
+
+    def generate_data(self):
+        return self.yt_train
+
+class DataGeneratorLHM:
+    def __init__(self, dim_x, n_train):
+
+        with open('data/real_data_z_total_gabe_trained_train_medium.pkl', 'rb') as f:
+            y_total = pickle.load(f)
+
+        y_total[:,:,-1] = np.multiply(y_total[:,:,-1],14.0)
+        if dim_x == 1:
+            self.yt = y_total[:, :, 0:1]
+        else:
+            self.yt = y_total
+
+        self.xt = self.yt.copy()
+
+        self.yt_train = self.yt[:, :n_train, :].copy()
+        self.yt_test = self.yt[:, n_train:, :].copy()
+
+        self.T = 14.
+        self.solver = equations.ODESolver(equations.LHMODEPlaceHolder(), self.T, 24)
+        self.noise_sigma = 0.001
+        self.freq = 24
 
     def generate_data(self):
         return self.yt_train

@@ -31,11 +31,12 @@ def get_grid():
     function_set['log'] = 1
     # function_set['neg'] = 1
     # function_set['cos'] = 1
+    function_set['tanh'] = 1
 
     if np.random.uniform() < 0.5:
         function_set = {
             # 'add': 25, 'sub': 25, 'mul': 50, 'div': 5, 'log': 5, 'cos': 5
-            'add': 25, 'mul': 50, 'log': 5
+            'add': 25, 'mul': 50, 'log': 5, 'tanh': 5
             # 'add': 25, 'mul': 50, 'log': 5
         }
 

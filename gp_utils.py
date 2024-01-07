@@ -140,7 +140,7 @@ def run_gp_real(X_train, y_train, x_id=0, seed=0):
 
 
 def run_gp_ode(ode_data, X_train, y_train, ode, x_id=0, seed=0):
-    if ode.name != 'real':
+    if (ode.name != 'real' and ode.name != 'lhm'):
         config = get_config(ode, x_id)
     else:
         config = get_config_real()

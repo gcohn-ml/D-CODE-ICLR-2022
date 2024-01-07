@@ -876,6 +876,33 @@ class RealODEPlaceHolder:
             'C': C,
         }
         return VarDict
+    
+class LHMODEPlaceHolder:
+    def __init__(self):
+        self.name = 'lhm'
+        self.std_base = 0.281234968452
+        self.positive = False
+
+    @staticmethod
+    def get_var_dict():
+        X0 = sympy.Symbol('X0', real=True)
+        X1 = sympy.Symbol('X1', real=True)
+        X2 = sympy.Symbol('X2', real=True)
+        X3 = sympy.Symbol('X3', real=True)
+        X4 = sympy.Symbol('X4', real=True)
+        X5 = sympy.Symbol('X5', positive=True)
+        C = sympy.Symbol('C', positive=True)
+
+        VarDict = {
+            'X0': X0,
+            'X1': X1,
+            'X2': X2,
+            'X3': X3,
+            'X4': X4,
+            'X5': X5,
+            'C': C,
+        }
+        return VarDict
 
 
 
