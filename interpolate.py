@@ -105,8 +105,6 @@ def get_ode_data(yt, x_id, dg, ode, config_n_basis=None, config_basis=None):
 
     ode_data = {
         'x_hat': X_sample,
-        # yt,
-        # X_sample,
         'g': g,
         'c': c,
         'weights': weight
